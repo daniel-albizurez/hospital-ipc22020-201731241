@@ -18,7 +18,7 @@ import java.util.List;
 public class ControladorArchivo {
     
     
-    public void leer(InputStream stream){
+    public static void leer(InputStream stream){
         List<String> lines = new ArrayList<>();
         List<String> outcome = new ArrayList<>();
         

@@ -52,7 +52,7 @@ public abstract class Dao<T> {
 
     public static void close() {
         try {
-            if (CONNECTION == null) {
+            if (CONNECTION != null) {
                 CONNECTION.close();
             }
 

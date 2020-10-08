@@ -23,6 +23,7 @@ logica\ControladorArchivo.class
 modelo\Consulta.class
 dao\DaoUsuario.class
 modelo\Resultado.class
+controlador\CargarArchivo.class
 dao\DaoCitas.class
 dao\DaoConsulta.class
 dao\DaoVista.class
