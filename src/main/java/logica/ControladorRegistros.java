@@ -37,7 +37,9 @@ public class ControladorRegistros {
         if (parentTags.contains(tag)) {
             parentTag = tag;
         } else if (tag.contains("/" + parentTag)) {
-            correcto = dao.insert(object);
+            if (correcto) {
+                correcto = dao.insert(object);
+            }
             if (extras != null) {
                 for (Object extra : extras) {
                     daoExtra.insert(extra);
@@ -88,6 +90,8 @@ public class ControladorRegistros {
                             case "PASSWORD":
                                 ((Administrador)object).setPassword(data);
                                 break;
+                            default:
+                                return false;
                         }
                         break;
                     case "doctor":
@@ -125,7 +129,7 @@ public class ControladorRegistros {
                                     ((Especializacion)objectExtra).setTitulo(data);
                                     extras.add(objectExtra);
                                 } else {
-                                    correcto = false;
+                                    return false;
                                 }
                                     break;
                             case "CORREO":
@@ -151,6 +155,8 @@ public class ControladorRegistros {
                             case "PASSWORD":
                                 ((Medico)object).setPassword(data);
                                 break;
+                            default:
+                                return false;
                         }
                         break;
                     case "laboratorista":
@@ -194,7 +200,7 @@ public class ControladorRegistros {
                                     ((Horario)objectExtra).setDia(data);
                                     extras.add(objectExtra);
                                 } else {
-                                    correcto = false;
+                                    return false;
                                 }
                                     break;
                             case "TRABAJOF":
@@ -203,6 +209,9 @@ public class ControladorRegistros {
                             case "PASSWORD":
                                 ((Laboratorista)object).setPassword(data);
                                 break;
+                            default:
+                                return false;
+
                         }
                         break;
                     case "paciente":
@@ -239,6 +248,9 @@ public class ControladorRegistros {
                             case "PASSWORD":
                                 ((Paciente)object).setPassword(data);
                                 break;
+                            default:
+                                return false;
+
                         }
                         break;
                     case "examen":
@@ -263,6 +275,8 @@ public class ControladorRegistros {
                             case "INFORME":
                                 ((Examen)object).setTipo_informe(data);
                                 break;
+                            default:
+                                return false;    
                         }
                         break;
                     case "cita":
@@ -296,6 +310,8 @@ public class ControladorRegistros {
                                 daoExtra = null;
                                 objectExtra = null;
                                 break;
+                            default:
+                                return false;    
                         }
                         break;
                     case "consulta":
@@ -308,6 +324,8 @@ public class ControladorRegistros {
                             case "COSTO":
                                 ((Especialidad)object).setCosto(Double.parseDouble(data));
                                 break;
+                            default:
+                                return false;    
                         }
                         break;
                     default:
