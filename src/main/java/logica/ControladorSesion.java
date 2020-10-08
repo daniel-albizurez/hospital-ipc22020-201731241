@@ -21,23 +21,19 @@ public class ControladorSesion {
     private static DaoUsuarios daoTipoUsuario;
 
     public static Usuario iniciarSesion(String email, String pass) {
-        String condicion = DaoUsuario.EMAIL + Dao.EQUALS + Dao.QUOTE + email + Dao.QUOTE;
-        ArrayList<String[]> datos = daoUsuario.multipleSelect(DaoUsuario.TIPO + DaoUsuario.COMA + DaoUsuario.PASSWORD, condicion);
+        String condicion = DaoUsuario.EMAIL + Dao.EQUALS + Dao.QUOTE + email + Dao.QUOTE + Dao.AND + DaoUsuario.PASSWORD + Dao.EQUALS + " md5(" + Dao.QUOTE + pass + Dao.QUOTE + ")";
+        ArrayList<String[]> datos = daoUsuario.multipleSelect(DaoUsuario.TIPO, condicion);
         if (datos != null && datos.size() > 0) {
             int tipoUsuario = Integer.parseInt(datos.get(0)[0]);
 //            usuario = daoUsuario.select(condicion);
-            if (!datos.get(0)[1].equals(pass)) {
-                usuario = null;
-            } else {
                 usuario = getByEmail(email);
-            }
         }
         return usuario;
     }
 
     public static Usuario getByEmail(String email) {
         String condicion = DaoUsuario.EMAIL + Dao.EQUALS + Dao.QUOTE + email + Dao.QUOTE;
-        ArrayList<String[]> datos = daoUsuario.multipleSelect(DaoUsuario.TIPO + DaoUsuario.COMA + DaoUsuario.PASSWORD, condicion);
+        ArrayList<String[]> datos = daoUsuario.multipleSelect(DaoUsuario.TIPO, condicion);
         if (datos != null && datos.size() > 0) {
             int tipoUsuario = Integer.parseInt(datos.get(0)[0]);
             switch (tipoUsuario) {

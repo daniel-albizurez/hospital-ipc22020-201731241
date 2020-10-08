@@ -25,7 +25,7 @@ public class DaoUsuario extends Dao<Usuario> {
     public static final String PASSWORD = "password";
     
     private static final String MARKERS = MARKER+COMA+MARKER+COMA+MARKER+COMA+
-                                          MARKER+COMA+MARKER+COMA+MARKER;
+                                          MARKER+COMA+MARKER+COMA+ " md5(" + MARKER + ")";
 
     @Override
     protected PreparedStatement prepareInsert(Usuario obj) {

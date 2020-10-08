@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -46,6 +48,17 @@ public abstract class Dao<T> {
 
     public Dao() {
         connect();
+    }
+
+    public static void close() {
+        try {
+            if (CONNECTION == null) {
+                CONNECTION.close();
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public Connection getConnection() {
@@ -107,7 +120,7 @@ public abstract class Dao<T> {
     public T select(String condition) {
         PreparedStatement query = prepareSelect(ALL, condition);
         T found = null;
-        try (ResultSet result = select(query)) {
+        try ( ResultSet result = select(query)) {
             found = setObject(result);
         } catch (SQLException e) {
             e.getMessage();
