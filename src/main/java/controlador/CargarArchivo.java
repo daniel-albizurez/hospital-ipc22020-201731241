@@ -31,7 +31,8 @@ public class CargarArchivo extends HttpServlet{
         System.out.println("Procesando archivo");
         Part filePart = req.getPart("file");
         InputStream stream = filePart.getInputStream();
-        ControladorArchivo.leer(stream);
+        resp.setContentType("text/html");
+        resp.getWriter().print(ControladorArchivo.leer(stream));
     }
     
     

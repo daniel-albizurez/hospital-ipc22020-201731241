@@ -37,7 +37,7 @@ public class DaoExamen extends Dao<Examen> {
             statement.setString(3, obj.getDescripcion());
             statement.setDouble(4, obj.getCosto());
             statement.setString(5, obj.getTipo_informe());
-            statement.setBoolean(5, obj.requiere_orden());
+            statement.setBoolean(6, obj.requiere_orden());
             return statement;
         } catch (Exception e) {
             System.out.println(e.getMessage());

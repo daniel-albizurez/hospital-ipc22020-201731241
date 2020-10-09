@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import dao.Dao;
+import dao.DaoEspecialidad;
 import java.io.Serializable;
 
 /**
@@ -19,6 +21,11 @@ public class Consulta extends Cita implements Serializable{
 
     public Consulta() {
         super.setTipo(1);
+        especialidad = "General";
+        super.setCosto(
+                (new DaoEspecialidad()).select(
+                        DaoEspecialidad.TITULO+Dao.EQUALS+Dao.QUOTE+especialidad+Dao.QUOTE).getCosto()
+                        );
     }
 
     public String getMedico() {

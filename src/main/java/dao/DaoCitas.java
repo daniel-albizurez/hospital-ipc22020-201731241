@@ -15,10 +15,23 @@ import modelo.Cita;
 public abstract class DaoCitas<T extends Cita> extends Dao<T> {
 
     private final DaoCita daoCita = new DaoCita();
-    
+
     @Override
     public boolean insert(T obj) {
-        return daoCita.insert(obj) && super.insert(obj);
+        boolean success;
+        try {
+            CONNECTION.setAutoCommit(false);
+            if ((success = (daoCita.insert(obj) && super.insert(obj)))) {
+                CONNECTION.commit();
+            } else {
+                CONNECTION.rollback();
+            }
+            CONNECTION.setAutoCommit(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            success = false;
+        }
+        return success;
     }
 
     @Override

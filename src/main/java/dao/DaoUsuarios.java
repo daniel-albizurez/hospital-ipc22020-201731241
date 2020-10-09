@@ -18,7 +18,20 @@ public abstract class DaoUsuarios<T extends Usuario> extends Dao<T> {
 
     @Override
     public boolean insert(T obj) {
-        return daoUsuario.insert(obj) && super.insert(obj);
+        boolean success;
+        try {
+            CONNECTION.setAutoCommit(false);
+            if ((success = (daoUsuario.insert(obj) && super.insert(obj)))) {
+                CONNECTION.commit();
+            } else {
+                CONNECTION.rollback();
+            }
+            CONNECTION.setAutoCommit(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            success = false;
+        }
+        return success;
     }
 
     @Override
@@ -28,7 +41,7 @@ public abstract class DaoUsuarios<T extends Usuario> extends Dao<T> {
 
     @Override
     public boolean delete(T obj) {
-        return daoUsuario.delete(obj) && super.delete(obj);
+        return super.delete(obj) && daoUsuario.delete(obj);
     }
 
     @Override

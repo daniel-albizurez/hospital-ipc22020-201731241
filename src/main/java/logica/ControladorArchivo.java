@@ -18,10 +18,10 @@ import java.util.List;
 public class ControladorArchivo {
     
     
-    public static void leer(InputStream stream){
+    public static String leer(InputStream stream){
         List<String> lines = new ArrayList<>();
-        List<String> outcome = new ArrayList<>();
-        
+        List<String[]> outcome = new ArrayList<>();
+        int lineNumber = 0;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             String line;
@@ -33,12 +33,15 @@ public class ControladorArchivo {
             System.out.println(e.getMessage());
         }
         for (String line : lines) {
-            if (!ControladorRegistros.registrar(line)) {
-                outcome.add("Registrado" + line);
+            lineNumber++;
+            if (ControladorRegistros.registrar(line)) {
+                line = line.replaceAll("<", "").replaceAll(">", "");
+                outcome.add( new String[] {"Registrado", line, lineNumber+""});
             } else {
-                outcome.add("Error, verifique que los datos no sean repetidos o tengan el formato incorrecto" + line);
+                outcome.add( new String[] {"Error, verifique que los datos no sean repetidos o tengan el formato incorrecto ", line, lineNumber+""});
             }
         }
+        return ControladorTablas.generateTable("Resultado, Etiqueta, Linea", (ArrayList)outcome);
     }
 }
 

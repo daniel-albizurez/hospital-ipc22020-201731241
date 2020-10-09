@@ -28,7 +28,7 @@ public class DaoHorario extends Dao<Horario>{
         try {
             PreparedStatement statement = CONNECTION.prepareStatement(query);
             statement.setString(1, obj.getLaboratorista());
-            statement.setString(1, obj.getDia());
+            statement.setString(2, obj.getDia());
             return statement;
         } catch (Exception e) {
             System.out.println(e.getMessage());
