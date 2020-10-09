@@ -20,7 +20,7 @@
         <%                        break;
             case 3:
         %>
-
+        <%@include file="reportes_source/reportesLaboratorista.html" %>
         <%
                 break;
             case 4:

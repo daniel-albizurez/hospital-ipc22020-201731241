@@ -54,6 +54,7 @@ public abstract class Dao<T> {
         try {
             if (CONNECTION != null) {
                 CONNECTION.close();
+                CONNECTION = null;
             }
 
         } catch (SQLException ex) {
