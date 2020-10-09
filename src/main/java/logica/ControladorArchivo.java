@@ -16,17 +16,16 @@ import java.util.List;
  * @author DANIEL
  */
 public class ControladorArchivo {
-    
-    
-    public static String leer(InputStream stream){
+
+    public static String leer(InputStream stream) {
         List<String> lines = new ArrayList<>();
         List<String[]> outcome = new ArrayList<>();
         int lineNumber = 0;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             String line;
-            while ((line = reader.readLine()) != null) {                
-             lines.add(line);
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
             }
         } catch (Exception e) {
             System.out.println("Error al leer el archivo");
@@ -35,13 +34,14 @@ public class ControladorArchivo {
         for (String line : lines) {
             lineNumber++;
             if (ControladorRegistros.registrar(line)) {
-                line = line.replaceAll("<", "").replaceAll(">", "");
-                outcome.add( new String[] {"Registrado", line, lineNumber+""});
+                line = line.replaceAll("<", " ").replaceAll(">", " ");
+                outcome.add(new String[]{"Correcto", line, lineNumber + ""});
             } else {
-                outcome.add( new String[] {"Error, verifique que los datos no sean repetidos o tengan el formato incorrecto ", line, lineNumber+""});
+                line = line.replaceAll("<", " ").replaceAll(">", " ");
+                outcome.add(new String[]{"Error, verifique que los datos no sean repetidos o tengan el formato incorrecto ", line, lineNumber + ""});
             }
         }
-        return ControladorTablas.generateTable("Resultado, Etiqueta, Linea", (ArrayList)outcome);
+        return ControladorTablas.generateTable("Resultado, Etiqueta, Linea", (ArrayList) outcome);
     }
 }
 
